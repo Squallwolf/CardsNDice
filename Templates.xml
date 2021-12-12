@@ -1,0 +1,96 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\..\FrameXML\UI.xsd">
+
+<Frame name="DiceTemplate" virtual="true" frameStrata="MEDIUM" toplevel="true" parent="CnD" movable="true" hidden="false">
+	<Size x="32" y="32"/>
+	<Frames>
+		<Frame name="DiceTex" setAllPoints="true" hidden="false">
+			<Layers>
+				<Layer level="BACKGROUND"/>
+			</Layers>
+			<Backdrop edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="false">
+				<EdgeSize>
+					<AbsValue val="4"/>
+				</EdgeSize>
+				<Color r="1" g="1" b="0.7"/>
+				<BackgroundInsets>
+					<AbsInset left="0" right="0" top="0" bottom="0"/>
+				</BackgroundInsets>
+			</Backdrop>
+		</Frame>				
+	</Frames>
+	<Scripts>
+		<OnLoad>
+		</OnLoad>
+		<OnMouseDown>
+			RegisterElement()
+			this:StartMoving();
+		</OnMouseDown>
+		<OnMouseUp>
+			Trade()
+			this:StopMovingOrSizing();
+		</OnMouseUp>
+	</Scripts>
+</Frame>
+
+<Frame name="SmallDiceTemplate" virtual="true" v="0" frameStrata="MEDIUM" toplevel="true" parent="CnD" movable="true" hidden="false">
+	<Size x="16" y="16"/>
+	<Frames>
+		<Frame name="DiceTex" setAllPoints="true" hidden="false">
+			<Layers>
+				<Layer level="BACKGROUND"/>
+			</Layers>
+			<Backdrop edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="false">
+				<EdgeSize>
+					<AbsValue val="4"/>
+				</EdgeSize>
+				<Color r="1" g="1" b="0.7"/>
+				<BackgroundInsets>
+					<AbsInset left="0" right="0" top="0" bottom="0"/>
+				</BackgroundInsets>
+			</Backdrop>
+		</Frame>				
+	</Frames>
+	<Scripts>
+		<OnLoad>
+		</OnLoad>
+	</Scripts>
+</Frame>
+
+
+<Frame name="CardTemplate" frameStrata="MEDIUM" toplevel="true" parent="CnD" movable="true" hidden="false">
+	<Size x="50" y="70"/>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CnD" relativePoint="BOTTOMLEFT"/><Offset x="-200" y="-0"/>
+	</Anchors>
+	<Frames>
+		<Frame name="CardTex" setAllPoints="true" hidden="false">
+			<Layers>
+				<Layer level="BACKGROUND"/>
+			</Layers>
+			<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="8"/>
+				</EdgeSize>
+				<Color r="0.3" g="1" b="1"/>
+				<BackgroundInsets>
+					<AbsInset left="2" right="2" top="2" bottom="2"/>
+				</BackgroundInsets>
+			</Backdrop>
+		</Frame>				
+	</Frames>
+	<Scripts>
+		<OnLoad>
+			Initiation()
+		</OnLoad>
+		<OnMouseDown>
+			RegisterElement()
+			this:StartMoving();
+		</OnMouseDown>
+		<OnMouseUp>
+			this:StopMovingOrSizing();
+		</OnMouseUp>
+	</Scripts>
+</Frame>
+
+</Ui>

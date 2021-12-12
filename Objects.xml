@@ -1,0 +1,172 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\..\FrameXML\UI.xsd">
+
+<Frame name="CupScreen" frameStrata="HIGH" parent="CnD" movable="true" hidden="true">
+	<Size x="160" y="220"/>
+	<Anchors>
+		<Anchor point="CENTER" relativeTo="CnD" relativePoint="CENTER"/><Offset x="0" y="-20"/>
+	</Anchors>
+	<Frames>
+		<Frame name="CupTex" setAllPoints="true" hidden="false">
+			<Layers>
+				<Layer level="BACKGROUND"/>
+			</Layers>
+			<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="8"/>
+				</EdgeSize>
+				<Color r="0.3" g="1" b="1"/>
+				<BackgroundInsets>
+					<AbsInset left="2" right="2" top="2" bottom="2"/>
+				</BackgroundInsets>
+			</Backdrop>
+		</Frame>				
+	</Frames>
+	<Scripts>
+		<OnLoad>
+		</OnLoad>
+		<OnMouseDown>
+			this:StartMoving();
+		</OnMouseDown>
+		<OnMouseUp>
+			this:StopMovingOrSizing();
+		</OnMouseUp>
+	</Scripts>
+</Frame>
+
+<Button name="ShuffleCupButton" toplevel="true" parent="CupScreen" movable="true" hidden="false">
+	<Size x="120" y="30"/>
+	<Anchors>
+		<Anchor point="BOTTOM" relativeTo="CupScreen" relativePoint="BOTTOM"><Offset x="0" y="10"/>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer>
+		 	<FontString name="$parentLabel" inherits="GameFontNormal" text="Shuffle Dice" justifyH="CENTER">
+          			<Anchors>
+   				         <Anchor point="TOPLEFT" />
+   			         <Anchor point="BOTTOMRIGHT" />
+   		       </Anchors>
+          		<FontHeight val="12"/>
+          		<Color r="1" g="0.3" b="0.3" />
+          		<Shadow>
+          			<Color r="0" g="0" b="0" />
+            			<Offset> <AbsDimension x="1" y="-1" />	</Offset>
+          		</Shadow>
+        </FontString>
+      		</Layer>
+	</Layers>
+	<Frames>
+		<Frame name="ShuffleBBG" setAllPoints="true" hidden="false">
+			<Backdrop bgFile="Interface\FrameGeneral\UI-Background-Rock" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="12"/>
+				</EdgeSize>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="5" bottom="5"/>
+				</BackgroundInsets>
+			</Backdrop>
+			<Scripts>
+				<OnEvent>
+				</OnEvent>
+			</Scripts>
+		</Frame>			
+	</Frames>
+	<Scripts>
+		<OnClick>
+			ShuffleDice();
+		</OnClick>
+	</Scripts>
+</Button>
+
+<Button name="ShowCupButton" toplevel="true" parent="CupScreen" movable="true" hidden="false">
+	<Size x="120" y="30"/>
+	<Anchors>
+		<Anchor point="BOTTOM" relativeTo="CupScreen" relativePoint="BOTTOM"><Offset x="0" y="50"/>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer>
+		 	<FontString name="$parentLabel" inherits="GameFontNormal" text="Show Dice" justifyH="CENTER">
+          			<Anchors>
+   				         <Anchor point="TOPLEFT" />
+   			         <Anchor point="BOTTOMRIGHT" />
+   		       </Anchors>
+          		<FontHeight val="12"/>
+          		<Color r="1" g="0.3" b="0.3" />
+          		<Shadow>
+          			<Color r="0" g="0" b="0" />
+            			<Offset> <AbsDimension x="1" y="-1" />	</Offset>
+          		</Shadow>
+        </FontString>
+      		</Layer>
+	</Layers>
+	<Frames>
+		<Frame name="ShuffleBBG" setAllPoints="true" hidden="false">
+			<Backdrop bgFile="Interface\FrameGeneral\UI-Background-Rock" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="12"/>
+				</EdgeSize>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="5" bottom="5"/>
+				</BackgroundInsets>
+			</Backdrop>
+			<Scripts>
+				<OnEvent>
+				</OnEvent>
+			</Scripts>
+		</Frame>			
+	</Frames>
+	<Scripts>
+		<OnClick>
+			ShowDice()
+		</OnClick>
+	</Scripts>
+</Button>
+
+<Button name="CollectCupButton" toplevel="true" parent="CupScreen" movable="true" hidden="false">
+	<Size x="120" y="30"/>
+	<Anchors>
+		<Anchor point="BOTTOM" relativeTo="CupScreen" relativePoint="BOTTOM"><Offset x="0" y="90"/>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer>
+		 	<FontString name="$parentLabel" inherits="GameFontNormal" text="Collect Dice" justifyH="CENTER">
+          			<Anchors>
+   				         <Anchor point="TOPLEFT" />
+   			         <Anchor point="BOTTOMRIGHT" />
+   		       </Anchors>
+          		<FontHeight val="12"/>
+          		<Color r="1" g="0.3" b="0.3" />
+          		<Shadow>
+          			<Color r="0" g="0" b="0" />
+            			<Offset> <AbsDimension x="1" y="-1" />	</Offset>
+          		</Shadow>
+        </FontString>
+      		</Layer>
+	</Layers>
+	<Frames>
+		<Frame name="ShuffleBBG" setAllPoints="true" hidden="false">
+			<Backdrop bgFile="Interface\FrameGeneral\UI-Background-Rock" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="12"/>
+				</EdgeSize>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="5" bottom="5"/>
+				</BackgroundInsets>
+			</Backdrop>
+			<Scripts>
+				<OnEvent>
+				</OnEvent>
+			</Scripts>
+		</Frame>			
+	</Frames>
+	<Scripts>
+		<OnClick>
+			CollectDice();
+		</OnClick>
+	</Scripts>
+</Button>
+
+</Ui>

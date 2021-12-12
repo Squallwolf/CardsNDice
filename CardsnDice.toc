@@ -1,0 +1,9 @@
+## Interface: 20300
+## Title: CardsnDice
+## Notes: Playing cards and dice for minigames in your party
+##SavedVariables: CND
+## Dependencies:
+CnD.lua
+CnD.xml
+Templates.xml
+Objects.xml

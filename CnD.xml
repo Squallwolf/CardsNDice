@@ -1,0 +1,430 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\..\FrameXML\UI.xsd">
+
+<Frame name="CnD" parent="UIParent" frameStrata="LOW" movable="true" hidden="false">
+	<Size x="1000" y="650"/>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="Minimap" relativePoint="BOTTOMLEFT"/><Offset x="-200" y="0"/>
+	</Anchors>
+	<Frames>
+		<Frame name="Display" setAllPoints="true" hidden="false">
+			<Layers>
+				<Layer level="BACKGROUND"/>
+			</Layers>
+			<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="16"/>
+				</EdgeSize>
+				<Color r="0.3" g="1" b="1"/>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="5" bottom="5"/>
+				</BackgroundInsets>
+			</Backdrop>
+		</Frame>				
+	</Frames>
+	<Scripts>
+		<OnLoad>
+			Init()
+		</OnLoad>
+		<OnEvent>
+			HandleEvent(event)
+		</OnEvent>
+		<OnMouseDown>
+			this:StartMoving();
+		</OnMouseDown>
+		<OnMouseUp>
+			this:StopMovingOrSizing()
+		</OnMouseUp>
+	</Scripts>
+</Frame>
+
+<Frame name="TableTopScreen" frameStrata="LOW" parent="CnD" movable="true" hidden="false">
+	<Size x="500" y="400"/>
+	<Anchors>
+		<Anchor point="TOP" relativeTo="CnD" relativePoint="TOP"/><Offset x="0" y="-150"/>
+	</Anchors>
+	<Frames>
+		<Frame name="Display" setAllPoints="true" hidden="false">
+			<Layers>
+				<Layer level="BACKGROUND"/>
+			</Layers>
+			<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="16"/>
+				</EdgeSize>
+				<Color r="0.2" g="0.7" b="0.7"/>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="5" bottom="5"/>
+				</BackgroundInsets>
+			</Backdrop>
+		</Frame>				
+	</Frames>
+	<Scripts>
+		<OnLoad>
+		</OnLoad>		
+		<OnMouseUp>
+		</OnMouseUp>
+	</Scripts>
+</Frame>
+
+<Frame name="CnDMenu" frameStrata="HIGH" parent="CnD" movable="false" hidden="false">
+	<Size x="950" y="610"/>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CnD" relativePoint="TOPLEFT"/><Offset x="20" y="20"/>
+	</Anchors>
+	<Frames>
+		<Frame name="Display" setAllPoints="true" hidden="false">
+			<Layers>
+				<Layer level="BACKGROUND"/>
+			</Layers>
+			<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="16"/>
+				</EdgeSize>
+				<Color r="0.3" g="1" b="1"/>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="5" bottom="5"/>
+				</BackgroundInsets>
+			</Backdrop>
+		</Frame>				
+	</Frames>
+	<Scripts>
+		<OnLoad>
+			
+		</OnLoad>
+	</Scripts>
+</Frame>
+
+<Button name="OpenMenu" toplevel="true" parent="CnD" movable="false" hidden="false">
+	<Size x="80" y="30"/>
+	<Anchors>
+		<Anchor point="TOPRIGHT" relativeTo="CnD" relativePoint="TOPRIGHT">
+			<Offset x="-50" y="-10"/>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer>
+		 	<FontString name="$parentLabel" inherits="GameFontNormal" text="New Game" justifyH="CENTER">
+          			<Anchors>
+   				         <Anchor point="TOPLEFT" />
+   			         <Anchor point="BOTTOMRIGHT" />
+   		       </Anchors>
+          		<FontHeight val="12"/>
+          		<Color r="1" g="0.3" b="0.3" />
+          		<Shadow>
+          			<Color r="0" g="0" b="0" />
+            			<Offset>
+              				<AbsDimension x="1" y="-1" />
+            			</Offset>
+          		</Shadow>
+        </FontString>
+      		</Layer>
+	</Layers>
+	<Frames>
+		<Frame name="CloseButton" setAllPoints="true" hidden="false">
+			<Backdrop bgFile="Interface\FrameGeneral\UI-Background-Rock" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="12"/>
+				</EdgeSize>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="5" bottom="5"/>
+				</BackgroundInsets>
+			</Backdrop>
+			<Scripts>
+				<OnEvent>
+				</OnEvent>
+			</Scripts>
+		</Frame>			
+	</Frames>
+	<Scripts>
+		<OnMouseDown>
+			CnDMenu:Show()
+			ClearValues()
+			CupScreen:Hide()
+			CardDeck:Hide()
+		</OnMouseDown>
+	</Scripts>
+</Button>
+
+<Button name="SmallDeck"  toplevel="true" parent="CnDMenu" movable="false" hidden="false">
+	<Size x="220" y="40"/>
+		<Anchors>
+		<Anchor point="BOTTOMLEFT" relativeTo="CnDMenu" relativePoint="BOTTOMLEFT"><Offset x="110" y="110"/>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer>
+		 	<FontString name="$parentLabel" inherits="GameFontNormal" text="Start with small card deck" justifyH="CENTER">
+          			<Anchors>
+   				         <Anchor point="TOPLEFT" />
+   			         <Anchor point="BOTTOMRIGHT" />
+   		       </Anchors>
+          		<FontHeight val="12"/>
+          		<Color r="1" g="0.3" b="0.3" />
+          		<Shadow>
+          			<Color r="0" g="0" b="0" />
+            			<Offset> <AbsDimension x="1" y="-1" />	</Offset>
+          		</Shadow>
+        </FontString>
+      		</Layer>
+	</Layers>
+	<Frames>
+		<Frame name="SDeckButton" setAllPoints="true" hidden="false">
+			<Backdrop bgFile="Interface\FrameGeneral\UI-Background-Rock" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="12"/>
+				</EdgeSize>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="5" bottom="5"/>
+				</BackgroundInsets>
+			</Backdrop>
+			<Scripts>
+				<OnEvent>
+				</OnEvent>
+			</Scripts>
+		</Frame>			
+	</Frames>
+	<Scripts>
+		<OnClick>
+			CreateSmallDeck()
+			CnDMenu:Hide();
+		</OnClick>
+	</Scripts>
+</Button>
+
+<Button name="RegularDeck" toplevel="true" parent="CnDMenu" movable="false" hidden="false">
+	<Size x="220" y="40"/>
+	<Anchors>
+		<Anchor point="BOTTOMLEFT" relativeTo="CnDMenu" relativePoint="BOTTOMLEFT"><Offset x="110" y="50"/>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer>
+		 	<FontString name="$parentLabel" inherits="GameFontNormal" text="Start with regular card deck" justifyH="CENTER">
+          			<Anchors>
+   				         <Anchor point="TOPLEFT" />
+   			         <Anchor point="BOTTOMRIGHT" />
+   		       </Anchors>
+          		<FontHeight val="12"/>
+          		<Color r="1" g="0.3" b="0.3" />
+          		<Shadow>
+          			<Color r="0" g="0" b="0" />
+            			<Offset> <AbsDimension x="1" y="-1" />	</Offset>
+          		</Shadow>
+        </FontString>
+      		</Layer>
+	</Layers>
+	<Frames>
+		<Frame name="RDeckButton" setAllPoints="true" hidden="false">
+			<Backdrop bgFile="Interface\FrameGeneral\UI-Background-Rock" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="12"/>
+				</EdgeSize>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="5" bottom="5"/>
+				</BackgroundInsets>
+			</Backdrop>
+			<Scripts>
+				<OnEvent>
+				</OnEvent>
+			</Scripts>
+		</Frame>			
+	</Frames>
+	<Scripts>
+		<OnClick>
+			CreateBigDeck();
+			CnDMenu:Hide();
+		</OnClick>
+	</Scripts>
+</Button>
+
+
+
+<Button name="OneCup"  toplevel="true" parent="CnDMenu" movable="false" hidden="false">
+	<Size x="220" y="40"/>
+		<Anchors>
+		<Anchor point="BOTTOMLEFT" relativeTo="CnDMenu" relativePoint="BOTTOMLEFT"><Offset x="410" y="110"/>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer>
+		 	<FontString name="$parentLabel" inherits="GameFontNormal" text="Start with one cup" justifyH="CENTER">
+          			<Anchors>
+   				         <Anchor point="TOPLEFT" />
+   			         <Anchor point="BOTTOMRIGHT" />
+   		       </Anchors>
+          		<FontHeight val="12"/>
+          		<Color r="1" g="0.3" b="0.3" />
+          		<Shadow>
+          			<Color r="0" g="0" b="0" />
+            			<Offset> <AbsDimension x="1" y="-1" />	</Offset>
+          		</Shadow>
+        </FontString>
+      		</Layer>
+	</Layers>
+	<Frames>
+		<Frame name="CloseButton" setAllPoints="true" hidden="false">
+			<Backdrop bgFile="Interface\FrameGeneral\UI-Background-Rock" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="12"/>
+				</EdgeSize>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="5" bottom="5"/>
+				</BackgroundInsets>
+			</Backdrop>
+			<Scripts>
+				<OnEvent>
+				</OnEvent>
+			</Scripts>
+		</Frame>			
+	</Frames>
+	<Scripts>
+		<OnClick>
+			CreateOneCup();
+			CnDMenu:Hide();
+			CupScreen:Show();
+		</OnClick>
+	</Scripts>
+</Button>
+
+<Button name="Cups" toplevel="true" parent="CnDMenu" movable="false" hidden="false">
+	<Size x="220" y="40"/>
+	<Anchors>
+		<Anchor point="BOTTOMLEFT" relativeTo="CnDMenu" relativePoint="BOTTOMLEFT"><Offset x="410" y="50"/>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer>
+		 	<FontString name="$parentLabel" inherits="GameFontNormal" text="Start with cups for each" justifyH="CENTER">
+          			<Anchors>
+   				         <Anchor point="TOPLEFT" />
+   			         <Anchor point="BOTTOMRIGHT" />
+   		       </Anchors>
+          		<FontHeight val="12"/>
+          		<Color r="1" g="0.3" b="0.3" />
+          		<Shadow>
+          			<Color r="0" g="0" b="0" />
+            			<Offset> <AbsDimension x="1" y="-1" />	</Offset>
+          		</Shadow>
+        </FontString>
+      		</Layer>
+	</Layers>
+	<Frames>
+		<Frame name="CloseButton" setAllPoints="true" hidden="false">
+			<Backdrop bgFile="Interface\FrameGeneral\UI-Background-Rock" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="12"/>
+				</EdgeSize>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="5" bottom="5"/>
+				</BackgroundInsets>
+			</Backdrop>
+			<Scripts>
+				<OnEvent>
+				</OnEvent>
+			</Scripts>
+		</Frame>			
+	</Frames>
+	<Scripts>
+		<OnClick>
+			CreateCups();
+			CnDMenu:Hide();
+			CupScreen:Show();
+		</OnClick>
+	</Scripts>
+</Button>
+
+<Button name="CloseCnD" toplevel="true" parent="CnD" movable="false" hidden="false">
+	<Size x="30" y="30"/>
+	<Anchors>
+		<Anchor point="TOPRIGHT" relativeTo="CnD" relativePoint="TOPRIGHT">
+			<Offset x="-10" y="-10"/>
+		</Anchor>
+	</Anchors>
+	<Layers>
+		<Layer>
+		 	<FontString name="$parentLabel" inherits="GameFontNormal" text="X" justifyH="CENTER">
+          			<Anchors>
+   				         <Anchor point="TOPLEFT" />
+   			         <Anchor point="BOTTOMRIGHT" />
+   		       </Anchors>
+          		<FontHeight val="12"/>
+          		<Color r="1" g="0.3" b="0.3" />
+          		<Shadow>
+          			<Color r="0" g="0" b="0" />
+            			<Offset>
+              				<AbsDimension x="1" y="-1" />
+            			</Offset>
+          		</Shadow>
+        </FontString>
+      		</Layer>
+	</Layers>
+	<Frames>
+		<Frame name="CloseButton" setAllPoints="true" hidden="false">
+			<Backdrop bgFile="Interface\FrameGeneral\UI-Background-Rock" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="12"/>
+				</EdgeSize>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="5" bottom="5"/>
+				</BackgroundInsets>
+			</Backdrop>
+			<Scripts>
+				<OnEvent>
+				</OnEvent>
+			</Scripts>
+		</Frame>			
+	</Frames>
+	<Scripts>
+		<OnMouseDown>
+			CnD:Hide()
+		</OnMouseDown>
+	</Scripts>
+</Button>
+
+<EditBox name="MemberInputBox" parent="CnDMenu" letters="2" autoFocus="false" hidden="false">
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture name="$parentMiddle" file="Interface\Common\Common-Input-Border">
+				<Size>
+					<AbsDimension x="10" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT"/>
+					<Offset x="-100" y="-100"/>
+				</Anchors>
+				<TexCoords left="0.05" right="1" top="0" bottom="0.625"/>
+			</Texture>
+		</Layer>
+	</Layers>
+	<Size>
+		<AbsDimension x="40" y="20"/>
+	</Size>
+	<Anchors>
+		<Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT">
+	</Anchor>
+</Anchors>
+	<Scripts>
+		<OnLoad>
+			this:SetText("0")
+		</OnLoad>
+		<OnEnterPressed>
+			this:ClearFocus()
+		</OnEnterPressed>
+		<OnEscapePressed>
+			this:ClearFocus()
+		</OnEscapePressed>
+		<OnEditFocusLost>
+			this:HighlightText(0, 0)
+		</OnEditFocusLost>
+		<OnEditFocusGained>
+			this:HighlightText()
+		</OnEditFocusGained>
+		<OnTextChanged>
+			AdjustPoints()
+		</OnTextChanged>
+	</Scripts>
+	<FontString inherits="ChatFontNormal"/>
+</EditBox>
+
+</Ui>
