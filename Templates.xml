@@ -22,19 +22,14 @@
 	<Scripts>
 		<OnLoad>
 		</OnLoad>
-		<OnMouseDown>
-			RegisterElement()
-			this:StartMoving();
-		</OnMouseDown>
 		<OnMouseUp>
-			Trade()
-			this:StopMovingOrSizing();
+			ToggleCupTable(this)
 		</OnMouseUp>
 	</Scripts>
 </Frame>
 
-<Frame name="SmallDiceTemplate" virtual="true" v="0" frameStrata="MEDIUM" toplevel="true" parent="CnD" movable="true" hidden="false">
-	<Size x="16" y="16"/>
+<Frame name="SmallDiceTemplate" virtual="true" frameStrata="MEDIUM" toplevel="true" parent="CnD" movable="true" hidden="false">
+	<Size x="18" y="18"/>
 	<Frames>
 		<Frame name="DiceTex" setAllPoints="true" hidden="false">
 			<Layers>
@@ -58,37 +53,43 @@
 </Frame>
 
 
-<Frame name="CardTemplate" frameStrata="MEDIUM" toplevel="true" parent="CnD" movable="true" hidden="false">
-	<Size x="50" y="70"/>
+<Frame name="CardTemplate" virtual="true" frameStrata="MEDIUM" toplevel="true" parent="CnD" movable="true" hidden="false">
+	<Size x="60" y="90"/>
 	<Anchors>
 		<Anchor point="TOPLEFT" relativeTo="CnD" relativePoint="BOTTOMLEFT"/><Offset x="-200" y="-0"/>
 	</Anchors>
 	<Frames>
-		<Frame name="CardTex" setAllPoints="true" hidden="false">
+		<Frame name="$parentTex" setAllPoints="true" hidden="false">
 			<Layers>
 				<Layer level="BACKGROUND"/>
+				<Layer>
+		 			<FontString name="$parentLabel" inherits="GameFontNormal" text="?" justifyH="TOPRIGHT">
+          			<Anchors>
+   				         <Anchor point="TOPRIGHT" />
+   			         <Anchor point="TOPRIGHT" />
+				<Offset x="-15" y="-15"/>
+   		       </Anchors>
+          		<FontHeight val="16"/>
+          		<Color r="1" g="1" b="0.7" />
+        </FontString>
+      		</Layer>
 			</Layers>
 			<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
 				<EdgeSize>
-					<AbsValue val="8"/>
+					<AbsValue val="4"/>
 				</EdgeSize>
-				<Color r="0.3" g="1" b="1"/>
+				<Color r="1" g="1" b="0.7"/>
 				<BackgroundInsets>
 					<AbsInset left="2" right="2" top="2" bottom="2"/>
 				</BackgroundInsets>
 			</Backdrop>
-		</Frame>				
+		</Frame>
 	</Frames>
 	<Scripts>
 		<OnLoad>
-			Initiation()
 		</OnLoad>
-		<OnMouseDown>
-			RegisterElement()
-			this:StartMoving();
-		</OnMouseDown>
 		<OnMouseUp>
-			this:StopMovingOrSizing();
+			PrepareTrade(this)
 		</OnMouseUp>
 	</Scripts>
 </Frame>

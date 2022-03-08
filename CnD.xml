@@ -44,13 +44,13 @@
 		<Anchor point="TOP" relativeTo="CnD" relativePoint="TOP"/><Offset x="0" y="-150"/>
 	</Anchors>
 	<Frames>
-		<Frame name="Display" setAllPoints="true" hidden="false">
+		<Frame name="$parentDisplay" setAllPoints="true" hidden="false">
 			<Layers>
 				<Layer level="BACKGROUND"/>
 			</Layers>
 			<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
 				<EdgeSize>
-					<AbsValue val="16"/>
+					<AbsValue val="8"/>
 				</EdgeSize>
 				<Color r="0.2" g="0.7" b="0.7"/>
 				<BackgroundInsets>
@@ -63,6 +63,200 @@
 		<OnLoad>
 		</OnLoad>		
 		<OnMouseUp>
+			TradeCards(this)
+		</OnMouseUp>
+	</Scripts>
+</Frame>
+
+<Frame name="OwnScreen" frameStrata="LOW" parent="CnD" movable="true" hidden="false">
+	<Size x="660" y="215"/>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CnD" relativePoint="TOPLEFT"><Offset x="170" y="-425"/></Anchor>
+	</Anchors>
+	<Frames>
+		<Frame name="$parentDisplay" setAllPoints="true" hidden="false">
+			<Layers>
+			</Layers>
+			<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="8"/>
+				</EdgeSize>
+				<Color r="0.2" g="0.7" b="0.7"/>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="5" bottom="5"/>
+				</BackgroundInsets>
+			</Backdrop>
+		</Frame>				
+	</Frames>
+	<Scripts>
+		<OnLoad>
+		</OnLoad>		
+		<OnMouseUp>
+			TradeCards(this)
+		</OnMouseUp>
+	</Scripts>
+</Frame>
+
+<Frame name="P1Screen" frameStrata="LOW" parent="CnD" movable="true" hidden="false">
+	<Size x="240" y="170"/>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CnD" relativePoint="TOPLEFT"><Offset x="10" y="-45"/></Anchor>
+	</Anchors>
+	<Frames>
+		<Frame name="$parentDisplay" setAllPoints="true" hidden="false">
+			<Layers>
+				<Layer level="BACKGROUND"/>
+				<Layer>
+		 			<FontString name="$parentLabel" inherits="GameFontNormal" text="P1" justifyH="TOPRIGHT">
+          			<Anchors>
+   				         <Anchor point="TOP" />
+   			         <Anchor point="TOP" />
+					<Offset x="0" y="-25"/>
+   		       		</Anchors>
+          			<FontHeight val="16"/>
+          			<Color r="1" g="0.3" b="0.3" />
+        		</FontString>
+      		</Layer>
+			</Layers>
+			<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="8"/>
+				</EdgeSize>
+				<Color r="0.2" g="0.7" b="0.7"/>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="5" bottom="5"/>
+				</BackgroundInsets>
+			</Backdrop>
+		</Frame>				
+	</Frames>
+	<Scripts>
+		<OnLoad>
+		</OnLoad>		
+		<OnMouseUp>
+			TradeCards(this)
+		</OnMouseUp>
+	</Scripts>
+</Frame>
+
+<Frame name="P2Screen" frameStrata="LOW" parent="CnD" movable="true" hidden="false">
+	<Size x="240" y="170"/>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CnD" relativePoint="TOPLEFT"><Offset x="10" y="-230"/></Anchor>
+	</Anchors>
+	<Frames>
+		<Frame name="$parentDisplay" setAllPoints="true" hidden="false">
+			<Layers>
+				<Layer level="BACKGROUND"/>
+				<Layer>
+		 			<FontString name="$parentLabel" inherits="GameFontNormal" text="P2" justifyH="TOPRIGHT">
+          			<Anchors>
+   				         <Anchor point="TOP" />
+   			         <Anchor point="TOP" />
+					<Offset x="0" y="-25"/>
+   		       		</Anchors>
+          			<FontHeight val="16"/>
+          			<Color r="1" g="0.3" b="0.3" />
+        		</FontString>
+      		</Layer>
+			</Layers>
+			<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="8"/>
+				</EdgeSize>
+				<Color r="0.2" g="0.7" b="0.7"/>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="5" bottom="5"/>
+				</BackgroundInsets>
+			</Backdrop>
+		</Frame>				
+	</Frames>
+	<Scripts>
+		<OnLoad>
+		</OnLoad>		
+		<OnMouseUp>
+			TradeCards(this)
+		</OnMouseUp>
+	</Scripts>
+</Frame>
+
+<Frame name="P3Screen" frameStrata="LOW" parent="CnD" movable="true" hidden="false">
+	<Size x="240" y="170"/>
+	<Anchors>
+		<Anchor point="TOP" relativeTo="CnD" relativePoint="TOP"><Offset x="370" y="-45"/></Anchor>
+	</Anchors>
+	<Frames>
+		<Frame name="$parentDisplay" setAllPoints="true" hidden="false">
+			<Layers>
+				<Layer level="BACKGROUND"/>
+				<Layer>
+		 			<FontString name="$parentLabel" inherits="GameFontNormal" text="P3" justifyH="TOPRIGHT">
+          			<Anchors>
+   				         <Anchor point="TOP" />
+   			         <Anchor point="TOP" />
+					<Offset x="0" y="-25"/>
+   		       		</Anchors>
+          			<FontHeight val="16"/>
+          			<Color r="1" g="0.3" b="0.3" />
+        		</FontString>
+      		</Layer>
+			</Layers>
+			<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="8"/>
+				</EdgeSize>
+				<Color r="0.2" g="0.7" b="0.7"/>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="5" bottom="5"/>
+				</BackgroundInsets>
+			</Backdrop>
+		</Frame>				
+	</Frames>
+	<Scripts>
+		<OnLoad>
+		</OnLoad>		
+		<OnMouseUp>
+			TradeCards(this)
+		</OnMouseUp>
+	</Scripts>
+</Frame>
+
+<Frame name="P4Screen" frameStrata="LOW" parent="CnD" movable="true" hidden="false">
+	<Size x="240" y="170"/>
+	<Anchors>
+		<Anchor point="TOP" relativeTo="CnD" relativePoint="TOP"><Offset x="370" y="-230"/></Anchor>
+	</Anchors>
+	<Frames>
+		<Frame name="$parentDisplay" setAllPoints="true" hidden="false">
+			<Layers>
+				<Layer level="BACKGROUND"/>
+			<Layer>
+		 			<FontString name="$parentLabel" inherits="GameFontNormal" text="P4" justifyH="TOPRIGHT">
+          			<Anchors>
+   				         <Anchor point="TOP" />
+   			         <Anchor point="TOP" />
+					<Offset x="0" y="-25"/>
+   		       		</Anchors>
+          			<FontHeight val="16"/>
+          			<Color r="1" g="0.3" b="0.3" />
+        		</FontString>
+      		</Layer>
+			</Layers>
+			<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="8"/>
+				</EdgeSize>
+				<Color r="0.2" g="0.7" b="0.7"/>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="5" bottom="5"/>
+				</BackgroundInsets>
+			</Backdrop>
+		</Frame>				
+	</Frames>
+	<Scripts>
+		<OnLoad>
+		</OnLoad>		
+		<OnMouseUp>
+			TradeCards(this)
 		</OnMouseUp>
 	</Scripts>
 </Frame>
@@ -192,7 +386,7 @@
 	</Scripts>
 </Button>
 
-<Button name="RegularDeck" toplevel="true" parent="CnDMenu" movable="false" hidden="false">
+<Button name="RegularDeck" toplevel="true" parent="CnDMenu" movable="false" hidden="true">
 	<Size x="220" y="40"/>
 	<Anchors>
 		<Anchor point="BOTTOMLEFT" relativeTo="CnDMenu" relativePoint="BOTTOMLEFT"><Offset x="110" y="50"/>
@@ -248,7 +442,7 @@
 	</Anchors>
 	<Layers>
 		<Layer>
-		 	<FontString name="$parentLabel" inherits="GameFontNormal" text="Start with one cup" justifyH="CENTER">
+		 	<FontString name="$parentLabel" inherits="GameFontNormal" text="Join without dice" justifyH="CENTER">
           			<Anchors>
    				         <Anchor point="TOPLEFT" />
    			         <Anchor point="BOTTOMRIGHT" />
@@ -280,14 +474,12 @@
 	</Frames>
 	<Scripts>
 		<OnClick>
-			CreateOneCup();
 			CnDMenu:Hide();
-			CupScreen:Show();
 		</OnClick>
 	</Scripts>
 </Button>
 
-<Button name="Cups" toplevel="true" parent="CnDMenu" movable="false" hidden="false">
+<Button name="CupsButton" toplevel="true" parent="CnDMenu" movable="false" hidden="false">
 	<Size x="220" y="40"/>
 	<Anchors>
 		<Anchor point="BOTTOMLEFT" relativeTo="CnDMenu" relativePoint="BOTTOMLEFT"><Offset x="410" y="50"/>
@@ -295,7 +487,7 @@
 	</Anchors>
 	<Layers>
 		<Layer>
-		 	<FontString name="$parentLabel" inherits="GameFontNormal" text="Start with cups for each" justifyH="CENTER">
+		 	<FontString name="$parentLabel" inherits="GameFontNormal" text="Start with        dice   " justifyH="CENTER">
           			<Anchors>
    				         <Anchor point="TOPLEFT" />
    			         <Anchor point="BOTTOMRIGHT" />
@@ -310,7 +502,7 @@
       		</Layer>
 	</Layers>
 	<Frames>
-		<Frame name="CloseButton" setAllPoints="true" hidden="false">
+		<Frame name="CupsBE" setAllPoints="true" hidden="false">
 			<Backdrop bgFile="Interface\FrameGeneral\UI-Background-Rock" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
 				<EdgeSize>
 					<AbsValue val="12"/>
@@ -327,7 +519,7 @@
 	</Frames>
 	<Scripts>
 		<OnClick>
-			CreateCups();
+			CreateCup();
 			CnDMenu:Hide();
 			CupScreen:Show();
 		</OnClick>
@@ -382,7 +574,7 @@
 	</Scripts>
 </Button>
 
-<EditBox name="MemberInputBox" parent="CnDMenu" letters="2" autoFocus="false" hidden="false">
+<EditBox name="StartingDiceBox" parent="CupsButton" letters="1" autoFocus="false" hidden="false">
 	<Layers>
 		<Layer level="BACKGROUND">
 			<Texture name="$parentMiddle" file="Interface\Common\Common-Input-Border">
@@ -391,22 +583,22 @@
 				</Size>
 				<Anchors>
 					<Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT"/>
-					<Offset x="-100" y="-100"/>
+					<Offset x="10" y="-100"/>
 				</Anchors>
 				<TexCoords left="0.05" right="1" top="0" bottom="0.625"/>
 			</Texture>
 		</Layer>
 	</Layers>
 	<Size>
-		<AbsDimension x="40" y="20"/>
+		<AbsDimension x="20" y="20"/>
 	</Size>
 	<Anchors>
-		<Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT">
+		<Anchor point="LEFT" relativeTo="$parent" relativePoint="CENTER">
 	</Anchor>
 </Anchors>
 	<Scripts>
 		<OnLoad>
-			this:SetText("0")
+			this:SetText("5")
 		</OnLoad>
 		<OnEnterPressed>
 			this:ClearFocus()
