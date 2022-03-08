@@ -7,7 +7,7 @@ CupValues = {}
 TableTop = {}
 TableTopValues = {}
 Players = {}
-OppoTable = {}
+OppoTables = {}
 CupDicePosX = {0,40,-20,20,60,0,40}
 CupDicePosY = {20,20,60,60,60,100,100}
 TableDicePosX = {-100,-60,-20,20,60,100,140}
@@ -71,7 +71,7 @@ local function AddonMsgHandler(self, event, prefix, msg, channel, source)
 
 --NewOppoDice:SetPoint("LEFT", k*22, 0)
 --NewOppoDice:SetBackdrop({bgFile = "Interface\\Addons\\CardsnDice\\Dice\\Dice" .. c .. ".tga"})
---table.insert(OppoTable, NewOppoDice)
+--table.insert(OppoTables, NewOppoDice)
 --				end
 --			end
 --		end
