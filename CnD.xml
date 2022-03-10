@@ -41,7 +41,7 @@
 <Frame name="TableTopScreen" frameStrata="LOW" parent="CnD" movable="true" hidden="false">
 	<Size x="500" y="400"/>
 	<Anchors>
-		<Anchor point="TOP" relativeTo="CnD" relativePoint="TOP"/><Offset x="0" y="-150"/>
+		<Anchor point="TOP" relativeTo="CnD" relativePoint="TOP"/><Offset x="0" y="0"/>
 	</Anchors>
 	<Frames>
 		<Frame name="$parentDisplay" setAllPoints="true" hidden="false">

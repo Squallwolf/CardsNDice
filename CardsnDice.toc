@@ -6,4 +6,6 @@
 CnD.lua
 CnD.xml
 Templates.xml
-Objects.xml
+DiceObjects.xml
+CardsObjects.xml
+

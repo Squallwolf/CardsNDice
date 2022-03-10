@@ -10,6 +10,7 @@ Players = {}
 ShowPos = {}
 ShowPosValues = {}
 DeckPosition = {x = 160, y = 250}
+DiscardPilePosition = {x = 165, y = 105}
 
 Trading = {}
 SimTrading = {}
@@ -19,6 +20,7 @@ OppoTable = {Player1 = {}, Player2 = {}, Player3 = {}, Player4 = {}}
 OppoHand = {Player1 = {}, Player2 = {}, Player3 = {}, Player4 = {}}
 TableCards = {}
 DisplayCards = {}
+DiscardPile = {}
 
 ShowPosX = {-180, -140,-100,-60,-20,20,60,100,140,180,220}
 CupDicePosX = {-40,0,40,-60,-20,20,60,-40,0,40}
@@ -153,16 +155,21 @@ end
 function CreateSmallDeck()
 -- delete all dice
 --	for k = 1, #Dice
+	Reshuffle:SetBackdrop({bgFile = "Interface\\Addons\\CardsnDice\\Cards\\Reshuffle.tga"})
 	CardsDeck = {}
 	local c = 1
+	local card
 	while c < 5 do
 		local i = 1
 		while i < 9 do
---		todo	if getglobal("Card" .. c .. i) then local card = getglobal("Card" .. c .. i) else 
-			local card = CreateFrame("Frame", "Card" .. c .. i, CnD, "CardTemplate")
+			if getglobal("Card" .. c .. i) then
+				card = getglobal("Card" .. c .. i)
+			else
+				card = CreateFrame("Frame", "Card" .. c .. i, CnD, "CardTemplate")
+			end
 			card:SetBackdrop({bgFile = "Interface\\Addons\\CardsnDice\\Cards\\" .. CardColors[c] .. SmallDeckCount[i] .. ".tga"})
-			local FL = getglobal(card:GetName() .. "TexLabel")  	--delete me
-			FL:SetText(CardColors[c] .. SmallDeckCount[i] .. "1")	--delete me
+			local FL = getglobal(card:GetName() .. "TexLabel") 
+			FL:SetText(CardColors[c] .. SmallDeckCount[i] .. "1")
 			card:ClearAllPoints()
 			card:SetPoint("CENTER", DeckPosition.x + i, DeckPosition.y)
 			TurnCard(card)
@@ -184,20 +191,24 @@ function CreateBigDeck()
 	CardsDeck = {}
 	SendChatMessage("Creating regular deck")
 	CreateSmallDeck()
+	local card
 	local c = 1
 	while c < 5 do
 		local i = 1
 		while i < 9 do
-			local f = CreateFrame("Frame", "Card" .. c .. i, CnD, "CardTemplate")
-
-			f:SetBackdrop({bgFile = "Interface\\Addons\\CardsnDice\\Cards\\" .. CardColors[c] .. BigDeckCount[i] .. ".tga"})
+			
+			if getglobal("Card" .. c .. i) then
+				card = getglobal("Card" .. c .. i)
+			else
+				card = CreateFrame("Frame", "Card" .. c .. i, CnD, "CardTemplate")
+			end
+			card:SetBackdrop({bgFile = "Interface\\Addons\\CardsnDice\\Cards\\" .. CardColors[c] .. BigDeckCount[i] .. ".tga"})
 			local FL = getglobal(f:GetName() .. "TexLabel")
 			FL:SetText(CardColors[c] .. BigDeckCount[i] .. "1")
-			NewCard = {Color = c, Value = i, Frame = f}
-			f:ClearAllPoints()
-			f:SetPoint("CENTER", DeckPosition.x + i, DeckPosition.y)
+			card:ClearAllPoints()
+			card:SetPoint("CENTER", DeckPosition.x + i, DeckPosition.y)
 			TurnCard(f)
-			table.insert(CardsDeck, NewCard)
+			table.insert(CardsDeck, card)
 			i = i + 1
 		end
 		c = c + 1
@@ -386,14 +397,13 @@ function TradeCards(that)
 		Trading[i].Glow:Hide()
 	end
 	local TarName = that:GetName()
---	local CardID = getglobal(that:GetName() .. "TexLabel"):GetText()
---	local CardFace = string.sub(CardID, 3, 3)
+	--SendChatMessage(TarName)
 	if that:GetName() == "TableTopScreen" then
 		SendChatMessage("Played card(s)", "PARTY")
 		for i = 1, #Trading do
 			table.insert(TableCards, Trading[i])
 			Trading[i]:ClearAllPoints()
-			Trading[i]:SetPoint("CENTER", "TableTopScreen", "BOTTOM", -100 + i * 50, 70)
+			Trading[i]:SetPoint("CENTER", "TableTopScreen", "BOTTOM", -220 + i * 50, 70)
 		end
 		msgTar = "TableTopScreen"
 		msg = msgC .. ":" .. msgTar
@@ -404,6 +414,22 @@ function TradeCards(that)
 		end
 		RedrawCards()
 		msgTar = GetUnitName("player")
+		msg = msgC .. ":" .. msgTar
+	elseif that:GetName() == "CardDisplay" then
+		SendChatMessage("Card displayed", "PARTY")
+		for i = 1, #Trading do
+			table.insert(DisplayCards, Trading[i])
+		end
+		RedrawCards()
+		msgTar = "CardDisplay"
+		msg = msgC .. ":" .. msgTar
+	elseif that:GetName() == "DiscardPile" then
+		SendChatMessage("Card discarded", "PARTY")
+		for i = 1, #Trading do
+			table.insert(DiscardPile, Trading[i])
+		end
+		RedrawCards()
+		msgTar = "DiscardPile"
 		msg = msgC .. ":" .. msgTar
 	elseif getglobal(that:GetName() .. "DisplayLabel"):GetText() and string.sub(that:GetName(), 2, 2) ~= "w" then
 		local j = string.sub(that:GetName(), 2, 2)
@@ -421,6 +447,11 @@ function TradeCards(that)
 	end
 	if msgTar == "TableTopScreen" then
 		for k = 1, #Trading do
+
+			local CardSig = getglobal(Trading[k]:GetName() .. "TexLabel"):GetText()
+			local CardFace = string.sub(CardSig, 3, 3)
+			if CardFace == "0" then TurnCard(Trading[k]) end
+
 			for i = 1, #Hand do
 				if Hand[i] == Trading[k] then
 					table.remove(Hand, i)
@@ -441,6 +472,61 @@ function TradeCards(that)
 		end
 	elseif msgTar == GetUnitName("player") then
 		for k = 1, #Trading do
+
+			local CardSig = getglobal(Trading[k]:GetName() .. "TexLabel"):GetText()
+			local CardFace = string.sub(CardSig, 3, 3)
+			if CardFace == "0" then TurnCard(Trading[k]) end
+		
+			for i = 1, #TableCards do
+				if TableCards[i] == Trading[k] then
+					table.remove(TableCards, i)
+				end
+			end
+			for i = 1, #CardsDeck do
+				if CardsDeck[i] == Trading[k] then
+					table.remove(CardsDeck, i)
+				 end
+			end
+			for j = 1, #Players do
+				for i = 1, #OppoHand["Player" .. j] do
+					if OppoHand["Player" .. j][i] == Trading[k] then
+						table.remove(OppoHand["Player" .. j], i) 
+					end
+				end
+			end
+		end
+	elseif msgTar == "CardDisplay" then
+		for k = 1, #Trading do
+
+			local CardSig = getglobal(Trading[k]:GetName() .. "TexLabel"):GetText()
+			local CardFace = string.sub(CardSig, 3, 3)
+			if CardFace == "0" then TurnCard(Trading[k]) end
+		
+			for i = 1, #TableCards do
+				if TableCards[i] == Trading[k] then
+					table.remove(TableCards, i)
+				end
+			end
+			for i = 1, #CardsDeck do
+				if CardsDeck[i] == Trading[k] then
+					table.remove(CardsDeck, i)
+				 end
+			end
+			for j = 1, #Players do
+				for i = 1, #OppoHand["Player" .. j] do
+					if OppoHand["Player" .. j][i] == Trading[k] then
+						table.remove(OppoHand["Player" .. j], i) 
+					end
+				end
+			end
+		end
+	elseif msgTar == "DiscardPile" then
+		for k = 1, #Trading do
+
+			local CardSig = getglobal(Trading[k]:GetName() .. "TexLabel"):GetText()
+			local CardFace = string.sub(CardSig, 3, 3)
+			if CardFace == "1" then TurnCard(Trading[k]) end
+		
 			for i = 1, #TableCards do
 				if TableCards[i] == Trading[k] then
 					table.remove(TableCards, i)
@@ -461,6 +547,12 @@ function TradeCards(that)
 		end
 	elseif PlayerValid then
 		for k = 1, #Trading do
+
+			local CardSig = getglobal(Trading[k]:GetName() .. "TexLabel"):GetText()
+			local CardFace = string.sub(CardSig, 3, 3)
+			SendChatMessage(CardFace)
+			if CardFace == "1" then TurnCard(Trading[k]) end
+
 			for i = 1, #TableCards do
 				if TableCards[i] == Trading[k] then
 					table.remove(TableCards, i)
@@ -499,6 +591,16 @@ function TradeCards(that)
 			if TableCards[i] == TableCards[j] then table.remove(TableCards, j) end
 		end
 	end
+	for i = 1, #DisplayCards do
+		for j = i + 1, #DisplayCards do
+			if DisplayCards[i] == DisplayCards[j] then table.remove(DisplayCards, j) end
+		end
+	end
+	for i = 1, #DiscardPile do
+		for j = i + 1, #DiscardPile do
+			if DiscardPile[i] == DiscardPile[j] then table.remove(DiscardPile, j) end
+		end
+	end
 	for k = 1, #Players do
 		for i = 1, #OppoHand["Player" .. k] do
 			for j = i + 1, #OppoHand["Player" .. k] do
@@ -516,17 +618,56 @@ end
 function SimTradeCards(that)
 	if that == "TableTopScreen" then
 		for i = 1, #SimTrading do
+
+			local CardSig = getglobal(SimTrading[k]:GetName() .. "TexLabel"):GetText()
+			local CardFace = string.sub(CardSig, 3, 3)
+			SendChatMessage(CardFace)
+			if CardFace == "0" then TurnCard(SimTrading[k]) end
+
 			table.insert(TableCards, SimTrading[i])
 			SimTrading[i]:ClearAllPoints()
-			SimTrading[i]:SetPoint("CENTER", "TableTopScreen", "BOTTOM", -100 + i * 50, 70)
+			SimTrading[i]:SetPoint("CENTER", "TableTopScreen", "BOTTOM", -220 + i * 50, 70)
 		end
 	elseif that == GetUnitName("player") then 
 		for i = 1, #SimTrading do
+
+			local CardSig = getglobal(SimTrading[k]:GetName() .. "TexLabel"):GetText()
+			local CardFace = string.sub(CardSig, 3, 3)
+			SendChatMessage(CardFace)
+			if CardFace == "0" then TurnCard(SimTrading[k]) end
+
 			table.insert(Hand, SimTrading[i])
+		end
+	elseif that == "CardDisplay" then 
+		for i = 1, #SimTrading do
+
+			local CardSig = getglobal(SimTrading[k]:GetName() .. "TexLabel"):GetText()
+			local CardFace = string.sub(CardSig, 3, 3)
+			SendChatMessage(CardFace)
+			if CardFace == "0" then TurnCard(SimTrading[k]) end
+
+			table.insert(DisplayCards, SimTrading[i])
+		end
+	elseif that == "DiscardPile" then 
+		for i = 1, #SimTrading do
+
+			local CardSig = getglobal(SimTrading[k]:GetName() .. "TexLabel"):GetText()
+			local CardFace = string.sub(CardSig, 3, 3)
+			SendChatMessage(CardFace)
+			if CardFace == "1" then TurnCard(SimTrading[k]) end
+
+			table.insert(DiscardPile, SimTrading[i])
 		end
 	else 	for j = 1, #Players do
 			if that == GetUnitName("party"  .. j) then
 				for i = 1, #SimTrading do
+
+					local CardSig = getglobal(SimTrading[k]:GetName() .. "TexLabel"):GetText()
+					local CardFace = string.sub(CardSig, 3, 3)
+					SendChatMessage(CardFace)
+					if CardFace == "1" then TurnCard(SimTrading[k]) end
+
+
 					table.insert(OppoHand["Player" .. j], SimTrading[i])
 				end
 			end
@@ -549,6 +690,52 @@ function SimTradeCards(that)
 			end
 		end
 	elseif that == GetUnitName("player") then
+		for k = 1, #SimTrading do
+			for i = 1, #TableCards do
+				if TableCards[i] == SimTrading[k] then
+					table.remove(TableCards, i)
+				end
+			end
+			for i = 1, #CardsDeck do
+				if CardsDeck[i] == SimTrading[k] then
+					table.remove(CardsDeck, i)
+				 end
+			end
+			for j = 1, #Players do
+				for i = 1, #OppoHand["Player" .. j] do
+					if OppoHand["Player" .. j][i] == SimTrading[k] then
+						table.remove(OppoHand["Player" .. j], i) 
+					end
+				end
+			end
+		end
+	elseif that == "CardDisplay" then
+		for k = 1, #SimTrading do
+			for i = 1, #Hand do
+				if Hand[i] == SimTrading[k] then table.remove(Hand, i) end
+			end
+			for i = 1, #TableCards do
+				if TableCards[i] == SimTrading[k] then
+					table.remove(TableCards, i)
+				end
+			end
+			for i = 1, #CardsDeck do
+				if CardsDeck[i] == SimTrading[k] then
+					table.remove(CardsDeck, i)
+				 end
+			end
+			for j = 1, #Players do
+				for i = 1, #OppoHand["Player" .. j] do
+					if OppoHand["Player" .. j][i] == SimTrading[k] then
+						table.remove(OppoHand["Player" .. j], i) 
+					end
+				end
+			end
+		end
+	elseif that == "DiscardPile" then
+		for i = 1, #Hand do
+				if Hand[i] == SimTrading[k] then table.remove(Hand, i) end
+			end
 		for k = 1, #SimTrading do
 			for i = 1, #TableCards do
 				if TableCards[i] == SimTrading[k] then
@@ -602,6 +789,16 @@ function SimTradeCards(that)
 			if TableCards[i] == TableCards[j] then table.remove(TableCards, j) end
 		end
 	end
+	for i = 1, #DisplayCards do
+		for j = i + 1, #DisplayCards do
+			if DisplayCards[i] == DisplayCards[j] then table.remove(DisplayCards, j) end
+		end
+	end
+	for i = 1, #DiscardPile do
+		for j = i + 1, #DiscardPile do
+			if DiscardPile[i] == DiscardPile[j] then table.remove(DiscardPile, j) end
+		end
+	end
 	for k = 1, #Players do
 		for i = 1, #OppoHand["Player" .. k] do
 			for j = i + 1, #OppoHand["Player" .. k] do
@@ -622,13 +819,69 @@ function RedrawCards()
 		end
 	end
 	local e = math.floor(460/#Hand) - 1
+	local f = math.floor(270/#DisplayCards) - 1
 	for i = 1, #Hand do
 		Hand[i]:ClearAllPoints()
-		Hand[i]:SetPoint("CENTER", "OwnScreen", "BOTTOM", -180 + i * e, 55)
+		Hand[i]:SetPoint("CENTER", "OwnScreen", "BOTTOM", -170 + i * e, 55)
+	end
+	for i = 1, #DisplayCards do
+		DisplayCards[i]:ClearAllPoints()
+		DisplayCards[i]:SetPoint("CENTER", "CardDisplay", "CENTER", -150 + i * f, 0)
 	end
 	for i = 1, #TableCards do
 		TableCards[i]:SetPoint(TableCards[i]:GetPoint())
+		TableCards[i]:Hide()
+		TableCards[i]:Show()
 	end
+	for i = 1, #DiscardPile do
+		DiscardPile[i]:ClearAllPoints()
+		DiscardPile[i]:SetPoint("CENTER", DiscardPilePosition.x + i, DiscardPilePosition.y)
+		DiscardPile[i]:Hide()
+		DiscardPile[i]:Show()
+	end
+end
+
+function DiscardTable()
+	for i = 1, #TableCards do
+		table.insert(DiscardPile, TableCards[i])
+	end
+	for i = 1, #DisplayCards do
+		table.insert(DiscardPile, DisplayCards[i])
+	end
+	TableCards = {}
+	DisplayCards = {}
+	for i = 1, #DiscardPile do
+		DiscardPile[i]:ClearAllPoints()
+		DiscardPile[i]:SetPoint("CENTER", DiscardPilePosition.x + i, DiscardPilePosition.y)
+		DiscardPile[i]:Hide()
+		DiscardPile[i]:Show()
+	end
+end
+
+function RecycleDiscarded()
+	if #DiscardPile > 0 then
+		for i = 1, #DiscardPile do
+			table.insert(CardsDeck, DiscardPile[i])
+		end
+		DiscardPile = {}
+		CardsDeck = Shuffle(CardsDeck)
+		for i = 1, #CardsDeck do
+			CardsDeck[i]:ClearAllPoints()
+			CardsDeck[i]:SetPoint("CENTER", DeckPosition.x + i, DeckPosition.y)
+			CardsDeck[i]:Hide()
+			CardsDeck[i]:Show()
+		end
+	end
+end
+
+function ReshuffleAllCards()
+	local CardsCount = #Hand + #TableCards + #DiscardPile + #DisplayCards
+	SendChatMessage(CardsCount)
+	for i = 1, #Players do
+		CardsCount = CardsCount + #OppoHand["Player" .. i]
+	end
+	if CardsCount < 40 then CreateSmallDeck() else CreateBigDeck() end
+	SendChatMessage(CardsCount)
 end
 
 function RedrawDice()
