@@ -4,9 +4,31 @@
 <Frame name="DiceTemplate" virtual="true" frameStrata="HIGH" toplevel="true" parent="CnD" movable="true" hidden="false">
 	<Size x="32" y="32"/>
 	<Frames>
-		<Frame name="DiceTex" setAllPoints="true" hidden="false">
+		<Frame name="$parentStats" setAllPoints="true" hidden="true">
 			<Layers>
 				<Layer level="BACKGROUND"/>
+				<Layer>
+		 			<FontString name="$parentValue" inherits="GameFontNormal" text="6" justifyH="TOPRIGHT">
+          				<Anchors>
+   				        	<Anchor point="BOTTOM" />
+   			        		<Anchor point="BOTTOM" />
+						<Offset x="0" y="-25"/>
+   		       			</Anchors>
+          				<FontHeight val="16"/>
+          					<Color r="1" g="0.3" b="0.3" />
+        				</FontString>
+      				</Layer>
+				<Layer>
+		 			<FontString name="$parentOwner" inherits="GameFontNormal" text="PlayerName" justifyH="TOPLEFT">
+          				<Anchors>
+   				        	<Anchor point="TOP" />
+   			        		<Anchor point="TOP" />
+						<Offset x="0" y="-25"/>
+   		       			</Anchors>
+          				<FontHeight val="16"/>
+          					<Color r="1" g="0.3" b="0.3" />
+        				</FontString>
+      				</Layer>
 			</Layers>
 			<Backdrop edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="false">
 				<EdgeSize>
@@ -59,20 +81,19 @@
 		<Anchor point="TOPLEFT" relativeTo="CnD" relativePoint="BOTTOMLEFT"/><Offset x="-200" y="-0"/>
 	</Anchors>
 	<Frames>
-		<Frame name="$parentTex" setAllPoints="true" hidden="false">
+		<Frame name="$parentTex" setAllPoints="true" hidden="true">
 			<Layers>
-				<Layer level="BACKGROUND"/>
-				<Layer>
-		 			<FontString name="$parentLabel" inherits="GameFontNormal" text="?" justifyH="TOPRIGHT">
-          			<Anchors>
-   				         <Anchor point="TOPRIGHT" />
-   			         <Anchor point="TOPRIGHT" />
-				<Offset x="-15" y="-15"/>
-   		       </Anchors>
-          		<FontHeight val="16"/>
-          		<Color r="1" g="1" b="0.7" />
-        </FontString>
-      		</Layer>
+				<Layer level="BACKGROUND"/> <Layer>
+			 	<FontString name="$parentLabel" inherits="GameFontNormal" text="?" justifyH="TOPRIGHT">
+          			<Anchors> 
+					<Anchor point="TOPRIGHT" />
+					<Anchor point="TOPRIGHT" />
+					<Offset x="-15" y="-15"/> 
+				</Anchors>
+          			<FontHeight val="16"/>
+          			<Color r="1" g="1" b="0.7" />
+        			</FontString>
+      			</Layer>
 			</Layers>
 			<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
 				<EdgeSize>

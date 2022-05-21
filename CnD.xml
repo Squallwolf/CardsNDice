@@ -1,7 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\..\FrameXML\UI.xsd">
 
-<Frame name="CnD" parent="UIParent" frameStrata="LOW" movable="true" hidden="false">
+<Frame name="CnD" parent="UIParent" frameStrata="LOW" movable="true" hidden="true">
 	<Size x="1000" y="650"/>
 	<Anchors>
 		<Anchor point="TOPLEFT" relativeTo="Minimap" relativePoint="BOTTOMLEFT"/><Offset x="-200" y="0"/>
@@ -69,9 +69,9 @@
 </Frame>
 
 <Frame name="OwnScreen" frameStrata="LOW" parent="CnD" movable="true" hidden="false">
-	<Size x="660" y="215"/>
+	<Size x="660" y="235"/>
 	<Anchors>
-		<Anchor point="TOPLEFT" relativeTo="CnD" relativePoint="TOPLEFT"><Offset x="170" y="-425"/></Anchor>
+		<Anchor point="BOTTOM" relativeTo="CnD" relativePoint="BOTTOM"><Offset x="0" y="5"/></Anchor>
 	</Anchors>
 	<Frames>
 		<Frame name="$parentDisplay" setAllPoints="true" hidden="false">
@@ -261,7 +261,7 @@
 	</Scripts>
 </Frame>
 
-<Frame name="CnDMenu" frameStrata="HIGH" parent="CnD" movable="false" hidden="false">
+<Frame name="CnDMenu" frameStrata="DIALOG" parent="CnD" movable="false" hidden="true">
 	<Size x="950" y="610"/>
 	<Anchors>
 		<Anchor point="TOPLEFT" relativeTo="CnD" relativePoint="TOPLEFT"/><Offset x="20" y="20"/>
@@ -283,8 +283,7 @@
 		</Frame>				
 	</Frames>
 	<Scripts>
-		<OnLoad>
-			
+		<OnLoad>			
 		</OnLoad>
 	</Scripts>
 </Frame>
@@ -315,7 +314,7 @@
       		</Layer>
 	</Layers>
 	<Frames>
-		<Frame name="CloseButton" setAllPoints="true" hidden="false">
+		<Frame name="NewGameButton" setAllPoints="true" hidden="false">
 			<Backdrop bgFile="Interface\FrameGeneral\UI-Background-Rock" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
 				<EdgeSize>
 					<AbsValue val="12"/>
@@ -332,10 +331,7 @@
 	</Frames>
 	<Scripts>
 		<OnMouseDown>
-			CnDMenu:Show()
-			ClearValues()
-			CupScreen:Hide()
-			CardDeck:Hide()
+			Start()
 		</OnMouseDown>
 	</Scripts>
 </Button>
@@ -381,12 +377,13 @@
 	<Scripts>
 		<OnClick>
 			CreateSmallDeck()
+			SendAddonMessage("Start", "SmallDeck", "RAID")
 			CnDMenu:Hide();
 		</OnClick>
 	</Scripts>
 </Button>
 
-<Button name="RegularDeck" toplevel="true" parent="CnDMenu" movable="false" hidden="true">
+<Button name="RegularDeck" toplevel="true" parent="CnDMenu" movable="false" hidden="false">
 	<Size x="220" y="40"/>
 	<Anchors>
 		<Anchor point="BOTTOMLEFT" relativeTo="CnDMenu" relativePoint="BOTTOMLEFT"><Offset x="110" y="50"/>
@@ -426,8 +423,9 @@
 	</Frames>
 	<Scripts>
 		<OnClick>
-			CreateBigDeck();
-			CnDMenu:Hide();
+			CreateBigDeck()
+			SendAddonMessage("Start", "BigDeck", "RAID")
+			CnDMenu:Hide()
 		</OnClick>
 	</Scripts>
 </Button>
